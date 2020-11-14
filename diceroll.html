@@ -14,26 +14,29 @@ div.dice{
 }
 </style>
 <script>
-function rollDice(){
-    var die1 = document.getElementById("die1");
-    var die2 = document.getElementById("die2");
-    var status = document.getElementById("status");
-    var d1 = Math.floor(Math.random() * 6) + 1;
-    var d2 = Math.floor(Math.random() * 6) + 1;
-    var diceTotal = d1 + d2;
-    die1.innerHTML = d1;
-    die2.innerHTML = d2;
-    status.innerHTML = "You rolled "+diceTotal+".";
-    if(d1 == d2){
-        status.innerHTML += " DOUBLES! You get a free turn!!";
+    var metals = ["Na", "K", "Mg", "Ca","B", "Al"];
+    var nonmetals = ["N", "P", "O", "S", "Cl", "Br"];
+
+    function rollDice(){
+        var die1 = document.getElementById("die1");
+        var die2 = document.getElementById("die2");
+        var status = document.getElementById("status");
+        var d1 = metals[Math.floor(Math.random() * 6) + 1];
+        var d2 = nonmetals[Math.floor(Math.random() * 6) + 1];
+        // var diceTotal = d1 + d2;
+        die1.innerHTML = d1;
+        die2.innerHTML = d2;
+        status.innerHTML = "You rolled "+d1+", "+d2;
+        // if(d1 == d2){
+        //     status.innerHTML += " DOUBLES! You get a free turn!!";
+        // }
     }
-}
 </script>
 </head>
 <body>
-<div id="die1" class="dice">0</div>
-<div id="die2" class="dice">0</div>
-<button onclick="rollDice()">Roll Dice</button>
-<h2 id="status" style="clear:left;"></h2>
+    <div id="die1" class="dice">0</div>
+    <div id="die2" class="dice">0</div>
+    <button onclick="rollDice()">Roll Dice</button>
+    <h2 id="status" style="clear:left;"></h2>
 </body>
 </html>
