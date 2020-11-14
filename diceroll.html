@@ -17,22 +17,40 @@ div.dice{
 }
 </style>
 <script>
-    var metals = ["Na", "K", "Mg", "Ca","B", "Al"];
-    var nonmetals = ["N", "P", "O", "S", "Cl", "Br"];
+    var combinations = [
+        "Na.N", "Na.P", "Na.O", "Na.S", "Na.Cl", "Na.Br",
+        "K.N", "K.P", "K.O", "K.S", "K.Cl", "K.Br",
+        "Mg.N", "Mg.P", "Mg.O", "Mg.S", "Mg.Cl", "Mg.Br",
+        "Ca.N", "Ca.P", "Ca.O", "Ca.S", "Ca.Cl", "Ca.Br",
+        "B.N", "B.P", "B.O", "B.S", "B.Cl", "B.Br",
+        "Al.N", "Al.P", "Al.O", "Al.S", "Al.Cl", "Al.Br"
+    ];
+
+    for(let i = combinations.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [combinations[i], combinations[j]] = [combinations[j], combinations[i]];
+    }
+
+    var iter = 0;
 
     function rollDice(){
         var die1 = document.getElementById("die1");
         var die2 = document.getElementById("die2");
         var status = document.getElementById("status");
-        var d1 = metals[Math.floor(Math.random() * 6)];
-        var d2 = nonmetals[Math.floor(Math.random() * 6)];
-        // var diceTotal = d1 + d2;
-        die1.innerHTML = d1;
-        die2.innerHTML = d2;
-        status.innerHTML = "You rolled "+d1+" and "+d2+".";
-        // if(d1 == d2){
-        //     status.innerHTML += " DOUBLES! You get a free turn!!";
-        // }
+        if(iter < 36) {
+            var pair = combinations[iter++];
+            var middle = pair.indexOf(".");
+            var d1 = pair.substring(0, middle);
+            var d2 = pair.substring(middle+1);
+            die1.innerHTML = d1;
+            die2.innerHTML = d2;
+            status.innerHTML = "You rolled "+d1+" and "+d2+".";
+        }
+        else {
+            die1.innerHTML = "&nbsp;";
+            die2.innerHTML = "&nbsp;";
+            status.innerHTML = "No more combinations to roll.";
+        }
     }
 </script>
 </head>
@@ -40,8 +58,8 @@ div.dice{
     <table>
         <tr>
             <td>
-                <div id="die1" class="dice">Na</div>
-                <div id="die2" class="dice">N</div>
+                <div id="die1" class="dice">&nbsp;</div>
+                <div id="die2" class="dice">&nbsp;</div>
                 <div>
                     <h2 id="status" style="clear:left;">&nbsp;</h2>
                 </div>
